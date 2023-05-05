@@ -1,0 +1,51 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>标准信息编辑</title>
+  </head>
+  
+  <body>
+  	<h3>修改标准信息</h3>
+  	<form id="operForm" action=save" method="post">
+  	<input type="hidden" name="id" value="0">
+  	<input type="hidden" name="packagePath" value="">
+  	<table border="1">
+  		<tbody>
+			<tr>
+  			<td>标准号：</td>
+  			<td><input type="text" name="stdNum" value=""></td>
+  		</tr>
+  		<tr>
+  			<td>中文名称：</td>
+  			<td><input type="text" name="zhname" value=""></td>
+  		</tr>
+  		<tr>
+  			<td>版本：</td>
+  			<td><input type="text" name="version" value=""></td>
+  		</tr>
+  		<tr>
+  			<td>关键字：</td>
+  			<td><input type="text" name="keys" value=""></td>
+  		</tr>
+  		<tr>
+  			<td>发布日期：</td>
+  			<td><input type="text" name="releaseDate" value=""></td>
+  		</tr>
+  		<tr>
+  			<td>实施日期：</td>
+  			<td><input type="text" name="implDate" value=""></td>
+  		</tr>
+  		<tr>
+  			<td>附件：</td>
+  			<td><input type="file" name="pkg"></td>
+  		</tr>
+  		<tr>
+  			<td></td>
+  			<td><button type="submit">保存</button><button type="button">取消</button></td>
+  		</tr>
+  	</tbody>
+		</table>
+  	</form>
+	</body>
+</html>
