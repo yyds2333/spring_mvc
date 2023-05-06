@@ -1,51 +1,83 @@
 <!DOCTYPE>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>标准信息编辑</title>
-  </head>
-  
-  <body>
-  	<h3>修改标准信息</h3>
-  	<form id="operForm" action=save" method="post">
-  	<input type="hidden" name="id" value="0">
-  	<input type="hidden" name="packagePath" value="">
-  	<table border="1">
-  		<tbody>
-			<tr>
-  			<td>标准号：</td>
-  			<td><input type="text" name="stdNum" value=""></td>
-  		</tr>
-  		<tr>
-  			<td>中文名称：</td>
-  			<td><input type="text" name="zhname" value=""></td>
-  		</tr>
-  		<tr>
-  			<td>版本：</td>
-  			<td><input type="text" name="version" value=""></td>
-  		</tr>
-  		<tr>
-  			<td>关键字：</td>
-  			<td><input type="text" name="keys" value=""></td>
-  		</tr>
-  		<tr>
-  			<td>发布日期：</td>
-  			<td><input type="text" name="releaseDate" value=""></td>
-  		</tr>
-  		<tr>
-  			<td>实施日期：</td>
-  			<td><input type="text" name="implDate" value=""></td>
-  		</tr>
-  		<tr>
-  			<td>附件：</td>
-  			<td><input type="file" name="pkg"></td>
-  		</tr>
-  		<tr>
-  			<td></td>
-  			<td><button type="submit">保存</button><button type="button">取消</button></td>
-  		</tr>
-  	</tbody>
-		</table>
-  	</form>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>修改页面</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="/static/js/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="/static/js/bootstrap/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            loaddata();
+        })
+        function loaddata() {
+            $.get("/ajax/getOne",{},function (data) {
+                console.log("data.id="+data.id)
+                if (data.id > 0){
+                    $("#h3").text("修改标准信息")
+                }
+                $("#in1").val(data.id)
+                $("#in2").val(data.stdNum)
+                $("#in3").val(data.zhname)
+                $("#in4").val(data.version)
+                $("#in5").val(data.keys)
+                $("#in6").val(data.releaseDate)
+                $("#in7").val(data.implDate)
+            },"JSON")
+        }
+    </script>
+</head>
+
+<body>
+<h3 id="h3">增加标准信息</h3>
+<form id="operForm" action=save" method="post">
+    <input type="hidden" id="in1" name="id" value="0">
+    <input type="hidden" name="packagePath" value="">
+    <table border="1">
+        <tbody>
+        <tr>
+            <td>标准号：</td>
+            <td><input type="text"  id="in2" name="stdNum" value=""></td>
+        </tr>
+        <tr>
+            <td>中文名称：</td>
+            <td><input type="text" id="in3" name="zhname" value=""></td>
+        </tr>
+        <tr>
+            <td>版本：</td>
+            <td><input type="text" id="in4" name="version" value=""></td>
+        </tr>
+        <tr>
+            <td>关键字：</td>
+            <td><input type="text" id="in5" name="keys" value=""></td>
+        </tr>
+        <tr>
+            <td>发布日期：</td>
+            <td><input type="text" id="in6" name="releaseDate" value=""></td>
+        </tr>
+        <tr>
+            <td>实施日期：</td>
+            <td><input type="text" id="in7" name="implDate" value=""></td>
+        </tr>
+        <tr>
+            <td>附件：</td>
+            <td><input type="file" name="pkg"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">保存</button>
+                <button type="button">取消</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
 </html>

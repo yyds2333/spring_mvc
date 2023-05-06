@@ -18,28 +18,66 @@
             loadData();
             console.log("----------")
         })
+        let pageTxt='';
         function loadData() {
-            $.ajax("/ajax/getAll",{},function (data) {
-                console.log(data)
+            $.get("/ajax/getAll",{},function (data) {
+                let sum = 0;
+                for (const standardsKey of data.standards) {
+                    sum++;
+                    pageTxt+=`
+                    <tr>
+                        <td><input type="checkbox" name="delId" value="`+sum+`">
+                        </td>
+                        <td>${standardsKey.stdNum}</td>
+                        <td>${standardsKey.zhname}</td>
+                        <td>${standardsKey.version}</td>
+                        <td>${toStringDate(new Date(standardsKey.releaseDate))}</td>
+                        <td>${toStringDate(new Date(standardsKey.implDate))}</td>
+                        <td><a href="#">下载</a>
+                        <a href="/list/update?id=${standardsKey.id}">修改</a></td>
+                    </tr>
+                    `
+                }
+                $("tbody:eq(0)").html(pageTxt);
             },"JSON")
         }
+        /*重写tolocaleString方法*/
+        function toStringDate(date) {
+            return date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日 ";
+        }
     </script>
+    <style>
+        tr{
+            width:1000px;
+            height: 50px;
+        }
+        td{
+            margin: auto;
+            text-align: center;
+        }
+        th{
+            margin: auto;
+            text-align: center;
+        }
+
+    </style>
 </head>
 
 <body>
+<div  style="text-align:center;margin: auto;padding: 20px 20px 20px 20px;width: 100%">
 <h3>标准信息列表</h3>
 <form id="operForm" action="index" method="get">
     <input type="text" name="text" value="">
     <button type="submit">提交检索</button>
-    <button type="button" onclick="location.href='edit'">新增标准</button>
+    <button type="button" onclick="location.href='/list/edit'">新增标准</button>
 </form>
 <form action="delete" method="post">
     <button id="btnDel">删除标准</button>
 
-    <table border="1">
-        <tbody>
+    <table border="1"  style="margin: auto;padding: 20px 20px 20px 20px;width:800px">
+        <thead>
         <tr>
-            <th><input type="checkbox" id="checkAll"></th>
+            <th><input type="checkbox" id="checkAll" onclick="checkALl()"></th>
             <th>标准号</th>
             <th>中文名称</th>
             <th>版本</th>
@@ -47,50 +85,8 @@
             <th>实施日期</th>
             <th>操作</th>
         </tr>
-
-        <tr>
-            <td><input type="checkbox" name="delId" value="1"></td>
-            <td>GB 6657.1-2016</td>
-            <td>建筑施工规范</td>
-            <td>2016</td>
-            <td>2016-03-21</td>
-            <td>2016-03-22</td>
-            <td><a href="http://localhost:8080/download?id=1">下载</a>
-                <a href="http://localhost:8080/edit?id=1">修改</a></td>
-        </tr>
-
-        <tr>
-            <td><input type="checkbox" name="delId" value="2"></td>
-            <td>GB 6657.2-2016</td>
-            <td>建筑地基处理技术规范</td>
-            <td>2016</td>
-            <td>2016-03-21</td>
-            <td>2016-03-22</td>
-            <td><a href="http://localhost:8080/download?id=2">下载</a>
-                <a href="http://localhost:8080/edit?id=2">修改</a></td>
-        </tr>
-
-        <tr>
-            <td><input type="checkbox" name="delId" value="3"></td>
-            <td>GB 6657.3-2016</td>
-            <td>建筑基坑支护技术规程</td>
-            <td>2016</td>
-            <td>2016-03-21</td>
-            <td>2016-03-22</td>
-            <td><a href="http://localhost:8080/download?id=3">下载</a>
-                <a href="http://localhost:8080/edit?id=3">修改</a></td>
-        </tr>
-
-        <tr>
-            <td><input type="checkbox" name="delId" value="4"></td>
-            <td>GB 6657.4-2016</td>
-            <td>建筑桩基技术规范</td>
-            <td>2016</td>
-            <td>2016-03-21</td>
-            <td>2016-03-22</td>
-            <td><a href="http://localhost:8080/download?id=4">下载</a>
-                <a href="http://localhost:8080/edit?id=4">修改</a></td>
-        </tr>
+        </thead>
+        <tbody>
         </tbody>
     </table>
 </form>
@@ -99,5 +95,7 @@
 <a href="http://localhost:8080/index?pageNum=2&amp;text=">下一页</a>
 <a href="http://localhost:8080/index?pageNum=2&amp;text=">末页</a>
 
+
+</div>
 </body>
 </html>
